@@ -1,0 +1,589 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Patrimonio Mimitos</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap">
+<style>
+html{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+[hidden]{display:none!important}
+img{max-width:100%}
+:root{
+  color-scheme:light;
+  --paper:#f6f5f0; --surface:#ffffff; --surface-2:#eeece5; --line:#dcd9cf; --line-soft:#e8e6de;
+  --ink:#16171a; --ink-2:#51524f; --ink-3:#8a8983;
+  --accent:#4a3aa7; --accent-ink:#ffffff; --accent-soft:#e9e5f7;
+  --good:#0ca30c; --good-text:#006300; --warn:#fab219; --warn-text:#7a5200; --bad:#d03b3b; --bad-text:#a52a2a;
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#eda100; --s5:#e87ba4;
+  --grid:#e1e0d9; --axis:#c3c2b7;
+  --font-ui:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --font-display:"Fraunces",Georgia,"Times New Roman",serif;
+  --radius:10px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --paper:#131314; --surface:#1c1c1e; --surface-2:#26262a; --line:#3a3a3f; --line-soft:#2c2c30;
+    --ink:#f2f1ec; --ink-2:#c3c2b7; --ink-3:#8f8e88;
+    --accent:#9b8ff0; --accent-ink:#141126; --accent-soft:#2a2540;
+    --good:#0ca30c; --good-text:#5fd45f; --warn:#fab219; --warn-text:#f2c46a; --bad:#e66767; --bad-text:#f08a8a;
+    --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; --s5:#d55181;
+    --grid:#2c2c2a; --axis:#383835;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#131314; --surface:#1c1c1e; --surface-2:#26262a; --line:#3a3a3f; --line-soft:#2c2c30;
+  --ink:#f2f1ec; --ink-2:#c3c2b7; --ink-3:#8f8e88;
+  --accent:#9b8ff0; --accent-ink:#141126; --accent-soft:#2a2540;
+  --good:#0ca30c; --good-text:#5fd45f; --warn:#fab219; --warn-text:#f2c46a; --bad:#e66767; --bad-text:#f08a8a;
+  --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; --s5:#d55181;
+  --grid:#2c2c2a; --axis:#383835;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-ui);font-size:15px;line-height:1.45;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1040px;margin:0 auto;padding-inline:16px;padding-block:0 48px}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);border-bottom:1px solid var(--line-soft)}
+header.top .row{max-width:1040px;margin:0 auto;padding:12px 16px 0;display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+h1{font-family:var(--font-display);font-weight:500;font-size:1.55rem;margin:0;letter-spacing:-.01em}
+.status{font-size:.8rem;color:var(--ink-3)}
+.status b{color:var(--ink-2);font-weight:500}
+nav.tabs{max-width:1040px;margin:0 auto;padding:8px 16px 0;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+nav.tabs::-webkit-scrollbar{display:none}
+nav.tabs button{appearance:none;border:0;background:transparent;color:var(--ink-2);font:inherit;font-weight:500;font-size:.92rem;padding:8px 12px 10px;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;border-radius:6px 6px 0 0}
+nav.tabs button:hover{background:var(--surface-2)}
+nav.tabs button[aria-selected="true"]{color:var(--accent);border-bottom-color:var(--accent)}
+nav.tabs button:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+section.tab{padding-top:20px}
+.eyebrow{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);font-weight:600;margin:0 0 8px}
+h2{font-family:var(--font-display);font-weight:500;font-size:1.25rem;margin:0 0 4px;text-wrap:balance}
+h3{font-size:.95rem;font-weight:600;margin:0 0 8px}
+p{margin:0 0 10px;max-width:68ch}
+.muted{color:var(--ink-3);font-size:.82rem}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:10px;margin:14px 0 22px}
+.tile{background:var(--surface);border:1px solid var(--line-soft);border-radius:var(--radius);padding:12px 14px 10px;display:flex;flex-direction:column;gap:4px;min-height:96px}
+.tile .head{display:flex;justify-content:space-between;align-items:flex-start;gap:6px}
+.tile .lbl{font-size:.72rem;color:var(--ink-3);text-transform:uppercase;letter-spacing:.06em;font-weight:600;line-height:1.25}
+.tile .val{font-size:1.3rem;font-weight:600;letter-spacing:-.01em;line-height:1.2;white-space:nowrap;font-variant-numeric:tabular-nums}
+.tile .sub{font-size:.78rem;color:var(--ink-2)}
+.tile .pill{flex:none;font-size:.68rem;font-weight:600;padding:2px 7px;border-radius:999px;border:1px solid transparent;display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
+.pill.good{background:color-mix(in srgb,var(--good) 14%,transparent);color:var(--good-text);border-color:color-mix(in srgb,var(--good) 40%,transparent)}
+.pill.warn{background:color-mix(in srgb,var(--warn) 18%,transparent);color:var(--warn-text);border-color:color-mix(in srgb,var(--warn) 50%,transparent)}
+.pill.bad{background:color-mix(in srgb,var(--bad) 14%,transparent);color:var(--bad-text);border-color:color-mix(in srgb,var(--bad) 45%,transparent)}
+.pill.na{background:var(--surface-2);color:var(--ink-3)}
+.pill .dot{width:7px;height:7px;border-radius:50%;background:currentColor}
+.card{background:var(--surface);border:1px solid var(--line-soft);border-radius:var(--radius);padding:14px 16px;margin:0 0 14px}
+.card.flat{background:transparent;border:0;padding:0}
+.chart-wrap{position:relative;height:280px;width:100%}
+.chart-wrap.tall{height:320px}
+.chart-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+.toggle{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+.toggle button{appearance:none;border:0;background:transparent;color:var(--ink-2);font:inherit;font-size:.78rem;padding:4px 10px;cursor:pointer}
+.toggle button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:760px){.grid2{grid-template-columns:1fr}}
+table{border-collapse:collapse;width:100%;font-size:.86rem;font-variant-numeric:tabular-nums}
+th,td{padding:7px 8px;border-bottom:1px solid var(--line-soft);text-align:right;white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+th{color:var(--ink-3);font-weight:600;font-size:.74rem;text-transform:uppercase;letter-spacing:.05em}
+.tbl{overflow-x:auto}
+.neg{color:var(--bad-text)}
+.pos{color:var(--good-text)}
+button.btn{appearance:none;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;font-weight:500;font-size:.9rem;padding:8px 14px;border-radius:8px;cursor:pointer}
+button.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+button.btn.small{font-size:.8rem;padding:5px 10px}
+button.btn:disabled{opacity:.55;cursor:default}
+form .f{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px 14px}
+label.fld{display:flex;flex-direction:column;gap:4px;font-size:.8rem;color:var(--ink-2)}
+label.fld input,label.fld select{font:inherit;font-size:.95rem;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);font-variant-numeric:tabular-nums;min-width:0}
+label.fld small{color:var(--ink-3)}
+.actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:10px 16px;border-radius:999px;font-size:.88rem;opacity:0;pointer-events:none;transition:opacity .25s;z-index:20;max-width:90vw}
+.toast.show{opacity:1}
+.rule{border-top:1px solid var(--line-soft);padding:14px 0}
+.rule h3{margin-bottom:6px}
+.rule .now{display:inline-block;font-size:.78rem;padding:2px 8px;border-radius:6px;background:var(--surface-2);margin-left:6px;font-variant-numeric:tabular-nums}
+details summary{cursor:pointer;color:var(--accent);font-size:.85rem;font-weight:500}
+details p{margin-top:8px}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:.78rem;color:var(--ink-2);margin:6px 0 0}
+.legend span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px;background:var(--c)}
+.empty{padding:26px;text-align:center;color:var(--ink-3);border:1px dashed var(--line);border-radius:var(--radius)}
+.list-edit{display:flex;flex-direction:column;gap:8px}
+.list-edit .row{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr auto;gap:8px;align-items:end}
+.list-edit .row.r3{grid-template-columns:1.6fr 1fr 1fr auto}
+.list-edit .row.r4{grid-template-columns:1.6fr 1fr 1fr 1fr auto}
+@media (max-width:700px){.list-edit .row,.list-edit .row.r3,.list-edit .row.r4{grid-template-columns:1fr 1fr}}
+.list-edit input,.list-edit select{font:inherit;font-size:.9rem;padding:7px 9px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);min-width:0;width:100%}
+.list-edit .h{font-size:.72rem;color:var(--ink-3);text-transform:uppercase;letter-spacing:.05em}
+.x{appearance:none;border:1px solid var(--line);background:transparent;color:var(--ink-3);border-radius:8px;padding:6px 9px;cursor:pointer;font:inherit}
+@media (prefers-reduced-motion: reduce){.toast{transition:none}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="row">
+    <h1>Patrimonio Mimitos</h1>
+    <div class="status"><span id="status">Cargando datos…</span> · <a href="#" id="open-conn" style="color:var(--accent)">conexión</a></div>
+  </div>
+  <nav class="tabs" role="tablist" aria-label="Secciones">
+    <button role="tab" data-tab="patrimonio" aria-selected="true">Patrimonio</button>
+    <button role="tab" data-tab="locales" aria-selected="false">Locales</button>
+    <button role="tab" data-tab="proyeccion" aria-selected="false">Proyección</button>
+    <button role="tab" data-tab="decidir" aria-selected="false">Cómo decidir</button>
+    <button role="tab" data-tab="cargar" aria-selected="false">Cargar datos</button>
+  </nav>
+</header>
+
+<div class="wrap">
+<div class="card" id="conn" hidden>
+  <h3>Conectar con GitHub</h3>
+  <p class="muted">Los datos viven en un repositorio privado tuyo. La app los lee y los guarda con un token que queda sólo en este navegador.</p>
+  <form id="f-conn"><div class="f">
+    <label class="fld">Usuario u organización<input id="g-owner" placeholder="sres08" autocomplete="off"></label>
+    <label class="fld">Repositorio privado de datos<input id="g-repo" placeholder="patrimonio-datos" autocomplete="off"></label>
+    <label class="fld">Token (fine-grained, sólo ese repo, Contents: read &amp; write)<input id="g-token" type="password" placeholder="github_pat_…" autocomplete="off"></label>
+  </div>
+  <div class="actions"><button class="btn primary" type="submit">Conectar</button><button class="btn" type="button" id="g-disconnect">Desconectar</button><span class="muted" id="g-msg"></span></div></form>
+</div>
+
+<!-- ================= PATRIMONIO ================= -->
+<section class="tab" id="tab-patrimonio">
+  <p class="eyebrow">Todo en dólares MEP · valores al cierre de <span id="p-mes">—</span></p>
+  <div class="tiles" id="p-tiles"></div>
+
+  <div class="card">
+    <div class="chart-head"><h3>De qué está hecho tu patrimonio</h3><span class="muted">Inmuebles y locales al valor actual; cartera y caja según lo cargado cada mes</span></div>
+    <div class="chart-wrap"><canvas id="c-compo"></canvas></div>
+    <div class="legend"><span style="--c:var(--s2)">Inmuebles</span><span style="--c:var(--s1)">Cartera</span><span style="--c:var(--s4)">Caja</span><span style="--c:var(--s3)">Locales</span><span style="--c:var(--s5)">Otros</span></div>
+  </div>
+
+  <div class="card">
+    <div class="chart-head"><h3>Ingresos pasivos frente a tus gastos y al objetivo</h3><span class="muted">USD por mes · línea punteada = objetivo</span></div>
+    <div class="chart-wrap"><canvas id="c-ingresos"></canvas></div>
+    <div class="legend"><span style="--c:var(--s3)">Ingresos pasivos (rentas + cartera)</span><span style="--c:var(--s2)">Gastos personales</span><span style="--c:var(--s1)">Ganancia de los locales (tu parte)</span></div>
+  </div>
+
+  <div class="card">
+    <h3>Cómo se calcula</h3>
+    <p class="muted" id="p-notas"></p>
+  </div>
+</section>
+
+<!-- ================= LOCALES ================= -->
+<section class="tab" id="tab-locales" hidden>
+  <p class="eyebrow">Ganancia final de cada local, mes a mes</p>
+  <div class="chart-head" style="margin-bottom:8px">
+    <p class="muted" style="margin:0">Verde: ganó los últimos 3 meses. Amarillo: alternó. Rojo: perdió 3 meses seguidos.</p>
+    <div class="toggle" role="group" aria-label="Moneda"><button id="l-const" aria-pressed="true">Pesos de hoy</button><button id="l-usd" aria-pressed="false">Dólares</button></div>
+  </div>
+  <div class="tiles" id="l-tiles"></div>
+  <div class="card">
+    <div class="chart-head"><h3>Ganancia mensual por local</h3><span class="muted" id="l-chart-note"></span></div>
+    <div class="chart-wrap tall"><canvas id="c-locales"></canvas></div>
+    <div class="legend"><span style="--c:var(--s1)">Juncal</span><span style="--c:var(--s2)">Ituzaingó</span><span style="--c:var(--s3)">Avellaneda</span></div>
+  </div>
+  <div class="card">
+    <h3>Últimos 12 meses</h3>
+    <div class="tbl"><table id="l-table"></table></div>
+    <p class="muted" style="margin-top:8px">"Tu parte" aplica tu participación (Juncal 100 %, Ituzaingó 70 %). Avellaneda se muestra pero no entra en tu patrimonio.</p>
+  </div>
+</section>
+
+<!-- ================= PROYECCIÓN ================= -->
+<section class="tab" id="tab-proyeccion" hidden>
+  <p class="eyebrow">¿Cuándo llego a los USD <span id="pr-obj">10.000</span> por mes?</p>
+  <div class="tiles" id="pr-tiles"></div>
+  <div class="card">
+    <div class="chart-head"><h3>Capital productivo proyectado</h3><span class="muted">USD de hoy · la línea punteada es el capital que hace falta</span></div>
+    <div class="chart-wrap tall"><canvas id="c-proy"></canvas></div>
+    <div class="legend"><span style="--c:var(--s3)">Optimista</span><span style="--c:var(--s1)">Base</span><span style="--c:var(--s2)">Conservador</span></div>
+  </div>
+  <div class="grid2">
+    <div class="card">
+      <h3>Años hasta el objetivo según cuánto aportás</h3>
+      <div class="tbl"><table id="pr-table"></table></div>
+      <p class="muted" style="margin-top:8px">Aporte = lo que cada mes pasa del negocio y de tus ingresos al patrimonio, después de tus gastos. Retorno real = rendimiento neto − inflación en dólares.</p>
+    </div>
+    <div class="card">
+      <h3>Supuestos (editables en Cargar datos)</h3>
+      <div class="tbl"><table id="pr-sup"></table></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CÓMO DECIDIR ================= -->
+<section class="tab" id="tab-decidir" hidden>
+  <p class="eyebrow">Reglas simples, con tu dato al lado</p>
+  <p>Cada regla tiene un umbral. El recuadro gris muestra tu número de hoy, así la decisión se toma mirando, no calculando. El detalle largo y las fuentes están en los informes del proyecto (A finanzas personales, B pymes retail, D pesos y dólares).</p>
+  <div id="reglas"></div>
+</section>
+
+<!-- ================= CARGAR ================= -->
+<section class="tab" id="tab-cargar" hidden>
+  <p class="eyebrow">Carga mensual · 6 números</p>
+  <div class="card">
+    <form id="f-mes">
+      <div class="f">
+        <label class="fld">Mes<select id="m-mes"></select></label>
+        <label class="fld">Dólar MEP promedio del mes<input id="m-mep" type="number" step="0.01" inputmode="decimal" placeholder="1536"><small>Si lo dejás vacío se usa el último conocido</small></label>
+        <label class="fld">Cartera (IOL) en USD<input id="m-cartera" type="number" step="1" inputmode="decimal" placeholder="160000"></label>
+        <label class="fld">Caja personal en USD<input id="m-caja" type="number" step="1" inputmode="decimal" placeholder="0"><small>Dólares billete + pesos convertidos</small></label>
+        <label class="fld">Ganancia Juncal ($ del mes)<input id="m-g-juncal" type="number" step="1" inputmode="decimal" placeholder="4000000"><small>Negativo si perdió</small></label>
+        <label class="fld">Ganancia Ituzaingó ($ del mes)<input id="m-g-ituzaingo" type="number" step="1" inputmode="decimal" placeholder="-6000000"></label>
+        <label class="fld">Ganancia Avellaneda ($ del mes)<input id="m-g-avellaneda" type="number" step="1" inputmode="decimal" placeholder=""></label>
+        <label class="fld">Inflación del mes (%)<input id="m-ipc" type="number" step="0.1" inputmode="decimal" placeholder="1.7"><small>INDEC; si falta se usa el supuesto</small></label>
+        <label class="fld">Rentas cobradas ($, opcional)<input id="m-rentas" type="number" step="1" inputmode="decimal" placeholder="4500000"><small>Vacío = las rentas de los inmuebles cargados</small></label>
+        <label class="fld">Gastos personales ($, opcional)<input id="m-gastos" type="number" step="1" inputmode="decimal" placeholder="6000000"><small>Vacío = el gasto mensual habitual</small></label>
+        <label class="fld">Nota<input id="m-nota" type="text" placeholder="p. ej. ganancia según Odoo, sin ajustes"></label>
+      </div>
+      <div class="actions"><button class="btn primary" type="submit" id="m-save">Guardar mes</button><span class="muted">Podés pedirle a Claude que cargue un mes desde Odoo: "cargá septiembre de Juncal".</span></div>
+    </form>
+  </div>
+
+  <p class="eyebrow" style="margin-top:22px">Datos que cambian poco</p>
+  <div class="card">
+    <h3>Inmuebles</h3>
+    <div class="list-edit" id="e-inmuebles"></div>
+    <div class="actions"><button class="btn small" type="button" id="add-inmueble">+ Agregar inmueble</button></div>
+  </div>
+  <div class="card">
+    <h3>Locales</h3>
+    <div class="list-edit" id="e-locales"></div>
+    <p class="muted" style="margin-top:8px">Valor estimado conservador: stock × 0,7 + caja − deudas con proveedores, en USD. Pedile a Claude que lo calcule desde Odoo cuando quieras actualizarlo.</p>
+  </div>
+  <div class="card">
+    <h3>Otros activos y deudas</h3>
+    <div class="list-edit" id="e-otros"></div>
+    <div class="actions"><button class="btn small" type="button" id="add-otro">+ Agregar activo</button><button class="btn small" type="button" id="add-deuda">+ Agregar deuda</button></div>
+  </div>
+  <div class="card">
+    <h3>Supuestos</h3>
+    <form id="f-sup"><div class="f">
+      <label class="fld">Gastos personales habituales ($/mes)<input id="s-gastos" type="number" step="1"></label>
+      <label class="fld">Objetivo de ingresos pasivos (USD/mes)<input id="s-objetivo" type="number" step="100"></label>
+      <label class="fld">Rendimiento neto del capital (% anual)<input id="s-rend" type="number" step="0.1"><small>Conservador: 5</small></label>
+      <label class="fld">Inflación en dólares (% anual)<input id="s-influsd" type="number" step="0.1"></label>
+      <label class="fld">Año en que querés llegar<input id="s-anio" type="number" step="1"></label>
+      <label class="fld">Inflación mensual supuesta (%)<input id="s-ipc" type="number" step="0.1"><small>Para los meses sin dato de INDEC</small></label>
+      <label class="fld">Parte líquida de la cartera (%)<input id="s-liq" type="number" step="1"><small>100 mientras esté en dólares sin invertir</small></label>
+      <label class="fld">Fondo de emergencia objetivo (meses)<input id="s-fe" type="number" step="1"></label>
+    </div></form>
+  </div>
+  <div class="actions">
+    <button class="btn primary" type="button" id="cfg-save">Guardar datos fijos y supuestos</button>
+    <button class="btn" type="button" id="btn-export">Exportar todo (JSON)</button>
+    <label class="btn" style="cursor:pointer">Importar JSON<input type="file" id="btn-import" accept="application/json" hidden></label>
+  </div>
+  <p class="muted" style="margin-top:12px">El JSON exportado es el respaldo completo (configuración + meses). Sirve para migrar la app a otro lugar sin rehacer nada.</p>
+</section>
+
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+(function(){
+'use strict';
+const LOCALES=[{id:'juncal',nombre:'Juncal',color:'--s1'},{id:'ituzaingo',nombre:'Ituzaingó',color:'--s2'},{id:'avellaneda',nombre:'Avellaneda',color:'--s3'}];
+const DEFAULT_CONFIG={
+  gastos_mensuales_ars:6000000, objetivo_usd_mes:10000, rendimiento_neto_pct:5, inflacion_usd_pct:3,
+  horizonte_anio:2038, ipc_supuesto_pct:1.7, liquidez_cartera_pct:100, fondo_emergencia_meses:9,
+  inmuebles:[], locales:[
+    {id:'juncal',nombre:'Juncal',participacion_pct:100,valor_usd:0,en_patrimonio:true},
+    {id:'ituzaingo',nombre:'Ituzaingó',participacion_pct:70,valor_usd:0,en_patrimonio:true},
+    {id:'avellaneda',nombre:'Avellaneda',participacion_pct:0,valor_usd:0,en_patrimonio:false}],
+  otros:[], deudas:[],
+  escenarios:{conservador:{aporte_pct:70,retorno_delta:-1},base:{aporte_pct:100,retorno_delta:0},optimista:{aporte_pct:130,retorno_delta:1.5}}
+};
+const S={config:null,meses:{},loaded:false,lVista:'const',charts:{}};let rendering=false;
+const $=s=>document.querySelector(s);
+const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const sgn=n=>n<0?'−':'';
+const fmtUSD=n=>n==null||isNaN(n)?'—':sgn(n)+'US$ '+Math.round(Math.abs(n)).toLocaleString('es-AR');
+const fmtUSDk=n=>n==null||isNaN(n)?'—':sgn(n)+(Math.abs(n)>=1e6?'US$ '+(Math.abs(n)/1e6).toLocaleString('es-AR',{maximumFractionDigits:2})+' M':'US$ '+Math.round(Math.abs(n)).toLocaleString('es-AR'));
+const fmtARS=n=>n==null||isNaN(n)?'—':sgn(n)+'$ '+(Math.abs(n)>=1e6?(Math.abs(n)/1e6).toLocaleString('es-AR',{maximumFractionDigits:1})+' M':Math.round(Math.abs(n)).toLocaleString('es-AR'));
+const fmtPct=(n,d=0)=>n==null||isNaN(n)||!isFinite(n)?'—':n.toLocaleString('es-AR',{maximumFractionDigits:d})+' %';
+const MESES_ES=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+const labelMes=k=>{const [y,m]=k.split('-');return MESES_ES[+m-1]+' '+y.slice(2);};
+const labelMesLargo=k=>{const [y,m]=k.split('-');return ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'][+m-1]+' '+y;};
+const num=v=>{if(v===''||v==null)return null;const n=Number(v);return isNaN(n)?null:n;};
+function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('show'),2600);}
+
+/* ---------- tabs ---------- */
+const tabs=[...document.querySelectorAll('nav.tabs button')];
+function showTab(id){tabs.forEach(b=>b.setAttribute('aria-selected',String(b.dataset.tab===id)));document.querySelectorAll('section.tab').forEach(s=>s.hidden=(s.id!=='tab-'+id));try{history.replaceState(null,'','#'+id);}catch(e){}if(id==='cargar')S.formsDirty=true;renderAll();}
+tabs.forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.tab)));
+
+/* ---------- cálculo ---------- */
+function calc(){
+  const cfg=Object.assign({},DEFAULT_CONFIG,S.config||{});
+  const keys=Object.keys(S.meses).sort();
+  const rows=[];let lastMep=null,lastCartera=null,lastCaja=null;
+  for(const k of keys){
+    const m=S.meses[k]||{};
+    const mep=num(m.mep_prom)||lastMep; lastMep=mep;
+    const cartera=num(m.cartera_usd); if(cartera!=null)lastCartera=cartera;
+    const caja=num(m.caja_usd); if(caja!=null)lastCaja=caja;
+    rows.push({k,mep,mepCierre:num(m.mep_cierre)||mep,ipc:num(m.ipc_var),cartera:cartera!=null?cartera:lastCartera,cajaUsd:caja!=null?caja:lastCaja,
+      cajaCargada:caja!=null,carteraCargada:cartera!=null,gan:m.ganancia||{},rentasArs:num(m.rentas_ars),gastosArs:num(m.gastos_ars),nota:m.nota||''});
+  }
+  // cartera y caja: hacia atrás se toma el primer valor conocido (así el histórico no arranca en cero)
+  for(const key of ['cartera','cajaUsd']){const i=rows.findIndex(r=>r[key]!=null);if(i>0){for(let j=0;j<i;j++){rows[j][key]=rows[i][key];rows[j][key+'Estimado']=true;}}}
+  // coeficiente a pesos de hoy: producto de (1+ipc) de los meses posteriores
+  const ipcSup=(cfg.ipc_supuesto_pct||1.7)/100;
+  let coef=1;
+  for(let i=rows.length-1;i>=0;i--){rows[i].coef=coef;const ipc=rows[i].ipc!=null?rows[i].ipc/100:ipcSup;coef*=(1+ipc);}
+  const rentasCfg=(cfg.inmuebles||[]).reduce((a,x)=>a+(num(x.renta_ars)||0)*(1-(num(x.gastos_pct)||0)/100),0);
+  const rentasBrutasCfg=(cfg.inmuebles||[]).reduce((a,x)=>a+(num(x.renta_ars)||0),0);
+  const gastosPctProm=rentasBrutasCfg>0?1-rentasCfg/rentasBrutasCfg:0.25;
+  const part=id=>{const l=(cfg.locales||[]).find(x=>x.id===id);return l?(num(l.participacion_pct)||0)/100:0;};
+  for(const r of rows){
+    const mep=r.mep||1;
+    r.rentasNetaUsd=(r.rentasArs!=null?r.rentasArs*(1-gastosPctProm):rentasCfg)/mep;
+    r.gastosUsd=(r.gastosArs!=null?r.gastosArs:cfg.gastos_mensuales_ars)/mep;
+    r.carteraRenta=(r.cartera||0)*(cfg.rendimiento_neto_pct/100)/12;
+    r.pasivos=r.rentasNetaUsd+r.carteraRenta;
+    r.ganUsd={};r.ganConst={};r.ganTuParte=0;let hayGan=false;
+    for(const L of LOCALES){const g=num(r.gan[L.id]);if(g!=null){hayGan=true;r.ganUsd[L.id]=g/mep;r.ganConst[L.id]=g*r.coef;r.ganTuParte+=g/mep*part(L.id);}}
+    r.hayGan=hayGan;
+    r.ahorro=r.pasivos+r.ganTuParte-r.gastosUsd;
+  }
+  // patrimonio (config actual + cartera/caja del mes)
+  const inmueblesVal=(cfg.inmuebles||[]).reduce((a,x)=>a+(num(x.valor_usd)||0)*(1-(num(x.haircut_pct)||0)/100),0);
+  const localesVal=(cfg.locales||[]).filter(l=>l.en_patrimonio!==false).reduce((a,l)=>a+(num(l.valor_usd)||0)*(num(l.participacion_pct)||0)/100,0);
+  const otrosVal=(cfg.otros||[]).reduce((a,x)=>a+(num(x.valor_usd)||0),0);
+  const deudasVal=(cfg.deudas||[]).reduce((a,x)=>a+(num(x.saldo_usd)||0),0);
+  for(const r of rows){r.compo={inmuebles:inmueblesVal,cartera:r.cartera||0,caja:r.cajaUsd||0,locales:localesVal,otros:otrosVal,deudas:deudasVal};r.patrimonio=inmueblesVal+(r.cartera||0)+(r.cajaUsd||0)+localesVal+otrosVal-deudasVal;}
+  const last=rows[rows.length-1]||null;
+  const withGan=rows.filter(r=>r.hayGan);
+  const lastN=(arr,n)=>arr.slice(Math.max(0,arr.length-n));
+  const prom6=lastN(withGan.length?withGan:rows,6);
+  const aporte=prom6.length?prom6.reduce((a,r)=>a+r.ahorro,0)/prom6.length:null;
+  const capitalProductivo=last?inmueblesVal+(last.cartera||0)+(last.cajaUsd||0):inmueblesVal;
+  const T=cfg.objetivo_usd_mes*12/(cfg.rendimiento_neto_pct/100);
+  const rBase=(cfg.rendimiento_neto_pct-cfg.inflacion_usd_pct)/100;
+  const yearsTo=(C0,A,r,Tg)=>{if(r<=0){return A>0?(Tg-C0)/(A*12):Infinity;}const An=A*12;if(C0>=Tg)return 0;const x=(Tg+An/r)/(C0+An/r);if(x<=0)return Infinity;return Math.log(x)/Math.log(1+r);};
+  const esc={};
+  for(const [name,e] of Object.entries(cfg.escenarios||DEFAULT_CONFIG.escenarios)){
+    const A=(aporte!=null?aporte:0)*(e.aporte_pct/100);const r=rBase+(e.retorno_delta||0)/100;
+    esc[name]={A,r,years:yearsTo(capitalProductivo,A,r,T)};
+  }
+  const hoyAnio=new Date().getFullYear()+new Date().getMonth()/12;
+  const nAnios=Math.max(0.5,(cfg.horizonte_anio||2038)-hoyAnio);
+  // aporte necesario para llegar en horizonte (bisección)
+  let aporteNecesario=null;{let lo=0,hi=100000;for(let i=0;i<60;i++){const mid=(lo+hi)/2;if(yearsTo(capitalProductivo,mid,rBase,T)>nAnios)lo=mid;else hi=mid;}aporteNecesario=hi;}
+  const gastosUsdHoy=last?last.gastosUsd:cfg.gastos_mensuales_ars/(lastMep||1);
+  const fondo=last?((last.cajaUsd||0)+(last.cartera||0)*(cfg.liquidez_cartera_pct/100))/gastosUsdHoy:null;
+  return {cfg,rows,last,withGan,aporte,capitalProductivo,T,rBase,esc,aporteNecesario,nAnios,fondo,inmueblesVal,localesVal,otrosVal,deudasVal,gastosUsdHoy,part,yearsTo};
+}
+
+/* ---------- helpers UI ---------- */
+function tile({lbl,val,sub,status,title}){const pill=status?`<span class="pill ${status.cls}"><span class="dot"></span>${status.txt}</span>`:'';return `<div class="tile" title="${title||''}"><div class="head"><div class="lbl">${lbl}</div>${pill}</div><div class="val">${val}</div><div class="sub">${sub||''}</div></div>`;}
+const st={good:t=>({cls:'good',txt:t||'bien'}),warn:t=>({cls:'warn',txt:t||'atención'}),bad:t=>({cls:'bad',txt:t||'mal'}),na:t=>({cls:'na',txt:t||'sin dato'})};
+function destroy(id){if(S.charts[id]){S.charts[id].destroy();delete S.charts[id];}}
+function baseOpts(extra){const ink=css('--ink-2'),grid=css('--grid');return Object.assign({responsive:true,maintainAspectRatio:false,animation:false,interaction:{mode:'index',intersect:false},plugins:{legend:{display:false},tooltip:{backgroundColor:css('--ink'),titleColor:css('--paper'),bodyColor:css('--paper'),padding:10,cornerRadius:6}},scales:{x:{grid:{display:false},ticks:{color:ink,font:{size:11}},border:{color:css('--axis')}},y:{grid:{color:grid},border:{display:false},ticks:{color:ink,font:{size:11}}}}},extra||{});}
+function mk(id,cfgc){destroy(id);const el=document.getElementById(id);if(!el||typeof Chart==='undefined')return;S.charts[id]=new Chart(el.getContext('2d'),cfgc);}
+const usdTick=v=>Math.abs(v)>=1e6?(v/1e6).toLocaleString('es-AR',{maximumFractionDigits:1})+' M':Math.abs(v)>=1000?(v/1000).toLocaleString('es-AR',{maximumFractionDigits:0})+' k':v;
+
+/* ---------- PATRIMONIO ---------- */
+function renderPatrimonio(C){
+  const {cfg,rows,last,aporte,fondo,aporteNecesario}=C;
+  $('#p-mes').textContent=last?labelMesLargo(last.k):'—';
+  if(!last){$('#p-tiles').innerHTML='<div class="empty" style="grid-column:1/-1">Todavía no hay meses cargados. Andá a Cargar datos o pedile a Claude que cargue el primer mes.</div>';return;}
+  const prev3=rows[rows.length-4];
+  const dPat=prev3?last.patrimonio-prev3.patrimonio:null;
+  const ilf=last.gastosUsd>0?last.pasivos/last.gastosUsd*100:null;
+  const avance=last.pasivos/cfg.objetivo_usd_mes*100;
+  const concInm=last.patrimonio>0?C.inmueblesVal/last.patrimonio*100:null;
+  const base=C.esc.base,cons=C.esc.conservador,opt=C.esc.optimista;
+  const anio=y=>!isFinite(y)?'nunca':y>60?'más de 60 años':String(Math.round(new Date().getFullYear()+new Date().getMonth()/12+y));
+  const tiles=[
+    tile({lbl:'Patrimonio neto',val:fmtUSDk(last.patrimonio),sub:dPat!=null?(Math.abs(dPat)<1?'sin cambios en 3 meses':`${dPat>0?'+':''}${fmtUSD(dPat)} en 3 meses`):'inmuebles + cartera + caja + locales − deudas',title:'Inmuebles con haircut + cartera + caja + tu parte de los locales + otros − deudas'}),
+    tile({lbl:'Ingresos pasivos',val:fmtUSD(last.pasivos)+'/mes',sub:`${fmtPct(avance)} del objetivo · cubren ${fmtPct(ilf)} de tus gastos`,status:ilf==null?st.na():ilf>=100?st.good('libre'):ilf>=50?st.warn('en camino'):st.bad('lejos'),title:'Rentas netas de los inmuebles + cartera × rendimiento ÷ 12. Verde ≥ 100 % de los gastos; amarillo 50-100; rojo < 50'}),
+    tile({lbl:'Aporte mensual',val:aporte!=null?fmtUSD(aporte):'—',sub:aporteNecesario!=null?`para llegar en ${cfg.horizonte_anio} hacen falta ${fmtUSD(aporteNecesario)}`:'',status:aporte==null?st.na():aporte>=aporteNecesario?st.good('alcanza'):aporte>=aporteNecesario*0.7?st.warn('cerca'):st.bad('falta'),title:'Promedio 6 meses de: ingresos pasivos + tu parte de la ganancia de los locales − gastos personales'}),
+    tile({lbl:'Fondo de emergencia',val:fondo!=null?fondo.toLocaleString('es-AR',{maximumFractionDigits:0})+' meses':'—',sub:`de gastos, en dólares líquidos · objetivo ${cfg.fondo_emergencia_meses}`,status:fondo==null?st.na():fondo>=cfg.fondo_emergencia_meses?st.good():fondo>=6?st.warn():st.bad(),title:'(caja USD + parte líquida de la cartera) ÷ gastos mensuales'}),
+    tile({lbl:'Concentración en inmuebles',val:fmtPct(concInm),sub:'del patrimonio · sano < 50 %',status:concInm==null?st.na():concInm<50?st.good():concInm<=65?st.warn():st.bad(),title:'Inmuebles ÷ patrimonio neto. Verde < 50 %; amarillo 50-65; rojo > 65'}),
+    tile({lbl:'Año de llegada',val:anio(base.years),sub:`entre ${anio(opt.years)} y ${anio(cons.years)} · objetivo ${fmtUSDk(C.T)}`,title:'Escenario base; rango optimista-conservador (ver Proyección)'})
+  ];
+  $('#p-tiles').innerHTML=tiles.join('');
+  // composición
+  const R=rows.slice(-24);
+  const ds=[['inmuebles','--s2'],['cartera','--s1'],['caja','--s4'],['locales','--s3'],['otros','--s5']].map(([key,c])=>({label:key,data:R.map(r=>r.compo[key]),backgroundColor:css(c),borderColor:css('--surface'),borderWidth:1,stack:'a'}));
+  mk('c-compo',{type:'bar',data:{labels:R.map(r=>labelMes(r.k)),datasets:ds},options:baseOpts({scales:{x:{stacked:true,grid:{display:false},ticks:{color:css('--ink-2'),font:{size:11}}},y:{stacked:true,grid:{color:css('--grid')},border:{display:false},ticks:{color:css('--ink-2'),font:{size:11},callback:usdTick}}},plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' '+c.dataset.label+': '+fmtUSD(c.parsed.y)}}}})});
+  mk('c-ingresos',{type:'line',data:{labels:R.map(r=>labelMes(r.k)),datasets:[
+    {label:'Ingresos pasivos',data:R.map(r=>r.pasivos),borderColor:css('--s3'),backgroundColor:css('--s3'),borderWidth:2,pointRadius:3,tension:.2},
+    {label:'Gastos personales',data:R.map(r=>r.gastosUsd),borderColor:css('--s2'),backgroundColor:css('--s2'),borderWidth:2,pointRadius:3,tension:.2},
+    {label:'Ganancia locales (tu parte)',data:R.map(r=>r.hayGan?r.ganTuParte:null),borderColor:css('--s1'),backgroundColor:css('--s1'),borderWidth:2,pointRadius:3,tension:.2,spanGaps:false},
+    {label:'Objetivo',data:R.map(()=>cfg.objetivo_usd_mes),borderColor:css('--ink-3'),borderDash:[5,4],borderWidth:1.5,pointRadius:0}
+  ]},options:baseOpts({plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' '+c.dataset.label+': '+fmtUSD(c.parsed.y)}}},scales:{x:{grid:{display:false},ticks:{color:css('--ink-2'),font:{size:11}}},y:{grid:{color:css('--grid')},border:{display:false},ticks:{color:css('--ink-2'),font:{size:11},callback:usdTick}}}})});
+  $('#p-notas').innerHTML=`Dólar MEP promedio del mes para ingresos y gastos; cierre del mes para cartera y caja. Inmuebles: ${fmtUSD(C.inmueblesVal)} (valor cargado menos haircut). Locales en tu patrimonio: ${fmtUSD(C.localesVal)}. Otros: ${fmtUSD(C.otrosVal)}. Deudas: ${fmtUSD(C.deudasVal)}. Rentas netas de gastos y vacancia según el % cargado en cada inmueble. Cartera: rendimiento ${cfg.rendimiento_neto_pct} % anual sobre el valor cargado; en los meses anteriores a la primera carga se repite el primer valor conocido.`;
+}
+
+/* ---------- LOCALES ---------- */
+function renderLocales(C){
+  const {rows,cfg}=C;const usd=S.lVista==='usd';
+  $('#l-const').setAttribute('aria-pressed',String(!usd));$('#l-usd').setAttribute('aria-pressed',String(usd));
+  const R=rows.slice(-18);
+  const tiles=LOCALES.map(L=>{
+    const serie=rows.filter(r=>r.ganUsd[L.id]!=null);
+    if(!serie.length)return tile({lbl:L.nombre,val:'—',sub:'sin meses cargados',status:st.na()});
+    const l=serie[serie.length-1];const v=usd?l.ganUsd[L.id]:l.ganConst[L.id];
+    const l3=serie.slice(-3);const prom3=l3.reduce((a,r)=>a+(usd?r.ganUsd[L.id]:r.ganConst[L.id]),0)/l3.length;
+    const l12=serie.slice(-12);const acum12=l12.reduce((a,r)=>a+r.ganUsd[L.id],0);
+    const pos=l3.filter(r=>r.ganUsd[L.id]>0).length;
+    const status=l3.length<3?st.na(`${l3.length} ${l3.length===1?'mes':'meses'}`):pos===3?st.good('gana'):pos===0?st.bad('pierde'):st.warn('alterna');
+    const f=usd?fmtUSD:fmtARS;const p=C.part(L.id);
+    return tile({lbl:`${L.nombre} · ${labelMes(l.k)}`,val:f(v),sub:`prom. 3 m ${f(prom3)} · últimos ${l12.length} m ${fmtUSD(acum12)}${p>0?` (tuyo ${fmtUSD(acum12*p)})`:''}`,status,title:usd?'Ganancia del mes ÷ dólar MEP promedio':'Ganancia del mes llevada a pesos de hoy con la inflación'});
+  });
+  $('#l-tiles').innerHTML=tiles.join('');
+  $('#l-chart-note').textContent=usd?'USD MEP del mes':'pesos de hoy (ajustados por inflación)';
+  const f=usd?fmtUSD:fmtARS;
+  mk('c-locales',{type:'bar',data:{labels:R.map(r=>labelMes(r.k)),datasets:LOCALES.map(L=>({label:L.nombre,data:R.map(r=>r.ganUsd[L.id]==null?null:(usd?r.ganUsd[L.id]:r.ganConst[L.id])),backgroundColor:css(L.color),borderRadius:3,borderSkipped:false,maxBarThickness:22}))},
+    options:baseOpts({plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' '+c.dataset.label+': '+f(c.parsed.y)}}},scales:{x:{grid:{display:false},ticks:{color:css('--ink-2'),font:{size:11}}},y:{grid:{color:css('--grid')},border:{display:false},ticks:{color:css('--ink-2'),font:{size:11},callback:v=>usd?usdTick(v):(Math.abs(v)>=1e6?(v/1e6).toLocaleString('es-AR',{maximumFractionDigits:1})+' M':v)}}}})});
+  const R12=rows.slice(-12).filter(r=>r.hayGan);
+  let html='<thead><tr><th>Mes</th>'+LOCALES.map(L=>`<th>${L.nombre}</th>`).join('')+'<th>Tu parte (USD)</th><th>Dólar</th></tr></thead><tbody>';
+  for(const r of [...R12].reverse()){html+=`<tr><td>${labelMes(r.k)}</td>`+LOCALES.map(L=>{const g=r.ganUsd[L.id];if(g==null)return '<td class="muted">—</td>';const v=usd?g:r.ganConst[L.id];return `<td class="${v<0?'neg':''}">${f(v)}</td>`;}).join('')+`<td class="${r.ganTuParte<0?'neg':'pos'}">${fmtUSD(r.ganTuParte)}</td><td class="muted">${r.mep?Math.round(r.mep).toLocaleString('es-AR'):'—'}</td></tr>`;}
+  html+='</tbody>';$('#l-table').innerHTML=R12.length?html:'<tbody><tr><td class="muted">Sin meses con ganancia cargada.</td></tr></tbody>';
+}
+$('#l-const').addEventListener('click',()=>{S.lVista='const';renderAll();});
+$('#l-usd').addEventListener('click',()=>{S.lVista='usd';renderAll();});
+
+/* ---------- PROYECCIÓN ---------- */
+function renderProyeccion(C){
+  const {cfg,esc,aporte,capitalProductivo,T,rBase,aporteNecesario}=C;
+  $('#pr-obj').textContent=cfg.objetivo_usd_mes.toLocaleString('es-AR');
+  const y0=new Date().getFullYear()+new Date().getMonth()/12;const anio=y=>!isFinite(y)?'nunca':y>60?'+60 años':String(Math.round(y0+y));
+  $('#pr-tiles').innerHTML=[
+    tile({lbl:'Capital productivo hoy',val:fmtUSDk(capitalProductivo),sub:'inmuebles (con haircut) + cartera + caja'}),
+    tile({lbl:'Capital necesario',val:fmtUSDk(T),sub:`USD ${cfg.objetivo_usd_mes.toLocaleString('es-AR')} × 12 ÷ ${cfg.rendimiento_neto_pct} %`}),
+    tile({lbl:'Aporte mensual actual',val:aporte!=null?fmtUSD(aporte):'—',sub:'promedio de los últimos 6 meses'}),
+    tile({lbl:`Para llegar en ${cfg.horizonte_anio}`,val:fmtUSD(aporteNecesario)+'/mes',sub:`al ${(rBase*100).toLocaleString('es-AR',{maximumFractionDigits:1})} % real`,status:aporte==null?st.na():aporte>=aporteNecesario?st.good('alcanza'):aporte>=aporteNecesario*0.7?st.warn('cerca'):st.bad('falta')}),
+    tile({lbl:'Año de llegada (base)',val:anio(esc.base.years),sub:`conservador ${anio(esc.conservador.years)} · optimista ${anio(esc.optimista.years)}`})
+  ].join('');
+  const years=15;const labels=[];for(let i=0;i<=years;i++)labels.push(String(Math.round(y0)+i));
+  const curve=(A,r)=>{const out=[];let c=capitalProductivo;for(let i=0;i<=years;i++){out.push(c);c=c*(1+r)+A*12;}return out;};
+  mk('c-proy',{type:'line',data:{labels,datasets:[
+    {label:'Optimista',data:curve(esc.optimista.A,esc.optimista.r),borderColor:css('--s3'),borderWidth:2,pointRadius:0,tension:.25},
+    {label:'Base',data:curve(esc.base.A,esc.base.r),borderColor:css('--s1'),borderWidth:2.5,pointRadius:0,tension:.25},
+    {label:'Conservador',data:curve(esc.conservador.A,esc.conservador.r),borderColor:css('--s2'),borderWidth:2,pointRadius:0,tension:.25},
+    {label:'Capital necesario',data:labels.map(()=>T),borderColor:css('--ink-3'),borderDash:[5,4],borderWidth:1.5,pointRadius:0}
+  ]},options:baseOpts({plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' '+c.dataset.label+': '+fmtUSDk(c.parsed.y)}}},scales:{x:{grid:{display:false},ticks:{color:css('--ink-2'),font:{size:11}}},y:{grid:{color:css('--grid')},border:{display:false},ticks:{color:css('--ink-2'),font:{size:11},callback:usdTick}}}})});
+  const aportes=[2000,4000,6000,8000,10000];const rs=[rBase-0.01,rBase,rBase+0.015];
+  let html='<thead><tr><th>Aporte/mes</th>'+rs.map(r=>`<th>${(r*100).toLocaleString('es-AR',{maximumFractionDigits:1})} % real</th>`).join('')+'</tr></thead><tbody>';
+  for(const A of aportes){html+=`<tr><td>${fmtUSD(A)}</td>`+rs.map(r=>{const y=C.yearsTo(capitalProductivo,A,r,T);return isFinite(y)&&y<=80?`<td>${y.toLocaleString('es-AR',{maximumFractionDigits:0})} años → ${Math.round(y0+y)}</td>`:'<td>más de 80 años</td>';}).join('')+'</tr>';}
+  html+='</tbody>';$('#pr-table').innerHTML=html;
+  $('#pr-sup').innerHTML=`<tbody><tr><td>Rendimiento neto</td><td>${cfg.rendimiento_neto_pct} % anual</td></tr><tr><td>Inflación en dólares</td><td>${cfg.inflacion_usd_pct} %</td></tr><tr><td>Retorno real (base)</td><td>${(rBase*100).toLocaleString('es-AR',{maximumFractionDigits:1})} %</td></tr><tr><td>Conservador</td><td>aporte ${cfg.escenarios.conservador.aporte_pct} %, retorno ${cfg.escenarios.conservador.retorno_delta>=0?'+':''}${cfg.escenarios.conservador.retorno_delta} pt</td></tr><tr><td>Optimista</td><td>aporte ${cfg.escenarios.optimista.aporte_pct} %, retorno +${cfg.escenarios.optimista.retorno_delta} pt</td></tr><tr><td>Año objetivo</td><td>${cfg.horizonte_anio}</td></tr></tbody>`;
+}
+
+/* ---------- CÓMO DECIDIR ---------- */
+function renderDecidir(C){
+  const {cfg,last,aporte,aporteNecesario,fondo,rows}=C;
+  const ilf=last&&last.gastosUsd>0?last.pasivos/last.gastosUsd*100:null;
+  const concInm=last&&last.patrimonio>0?C.inmueblesVal/last.patrimonio*100:null;
+  const concNeg=last&&last.patrimonio>0?C.localesVal/last.patrimonio*100:null;
+  const now=v=>`<span class="now">hoy: ${v}</span>`;
+  const localRule=L=>{const s=rows.filter(r=>r.ganUsd[L.id]!=null).slice(-6);if(!s.length)return `${L.nombre}: sin datos`;const neg=s.filter(r=>r.ganUsd[L.id]<0).length;const acum=s.reduce((a,r)=>a+r.ganUsd[L.id],0);return `${L.nombre}: ${neg} de ${s.length} meses en pérdida · acumulado 6 m ${fmtUSD(acum)}`;};
+  const reglas=[
+    {t:'1. Orden del excedente',r:'Primero fondo de emergencia de 9-12 meses en dólares líquidos; después reserva de 2-3 meses de fijos en cada local; después diversificar; recién al final buscar más rendimiento.',now:now(fondo!=null?fondo.toLocaleString('es-AR',{maximumFractionDigits:0})+' meses de fondo':'sin dato de caja'),more:'Sin fondo de emergencia todo se vende en el peor momento. Con ingresos irregulares y en Argentina conviene el tramo alto (9-12 meses).'},
+    {t:'2. Cuánto aportar por mes',r:`Para llegar a USD ${cfg.objetivo_usd_mes.toLocaleString('es-AR')}/mes en ${cfg.horizonte_anio} hacen falta ${fmtUSD(aporteNecesario)} por mes al ${cfg.rendimiento_neto_pct} % neto. La palanca es el aporte, no el rendimiento: subir el aporte de 3.000 a 8.000 acorta 15 años; subir el rendimiento de 3 a 6 % acorta 5-9.`,now:now(aporte!=null?fmtUSD(aporte)+'/mes':'sin dato'),more:'El aporte real es lo que sale del negocio más las rentas, menos tus gastos. Si el aporte cae dos meses seguidos por debajo del necesario, la primera pregunta es el retiro de Juncal, no la cartera.'},
+    {t:'3. Diversificación',r:'Inmuebles < 50 % del patrimonio; negocios < 40 %; riesgo Argentina (todo lo que está en el país) idealmente ≤ 75 %. Cuando se supera, la próxima inversión va a la clase que falta, aunque rinda menos.',now:now(`inmuebles ${fmtPct(concInm)} · negocios ${fmtPct(concNeg)}`),more:'Hoy todo el patrimonio está en Argentina: negocio, inmuebles y cartera local son un solo riesgo con tres nombres. En 2018-2020 esa combinación cayó 50-70 % en dólares. Una parte de la cartera en Treasuries o bonos IG de EE.UU. es el seguro más barato.'},
+    {t:'4. Rendimiento conservador',r:'Supuesto de 5 % neto en dólares: mitad afuera (Treasuries 5,2 %, IG ~6 %), ONs ley NY de primera línea (7 %), poco soberano (≤ 15 %). Al 5 % hacen falta USD 2,4 M; al 6 %, 2,0 M; al 8 % (soberanos) 1,5 M, pero eso ya no es conservador.',now:now(`${cfg.rendimiento_neto_pct} % → ${fmtUSDk(C.T)}`),more:'Yields de septiembre 2026: T-bill 4,2 %, Treasury 10 a 5,2 %, IG 5,8 %, ONs top 5,3-7,1 %, soberanos 9,5-12,7 %, plazo fijo USD 4,5-5 % a un año, alquiler CABA 5,7 % bruto (4-4,7 neto). Para renta perpetua usar 4,5-5 % neto; la diferencia con el bruto es colchón, no ingreso.'},
+    {t:'5. Un local que pierde',r:'Escribir el tope de aportes y la fecha límite de equilibrio (mes 12-15 desde la apertura). Si pierde 3 meses seguidos sin que la venta crezca, se revisa el plan; si al mes 12 sigue igual, se cierra o se vende la parte. Lo aportado es costo hundido: no cuenta para la decisión.',now:now(localRule(LOCALES[1])),more:'Dos tests: contribución marginal positiva (cubre lo variable y aporta a los fijos) → seguir y corregir. Contribución negativa o menos de 3 meses de caja sin plan concreto → cerrar. Entre medio decide la tendencia de tickets por día, no la ganancia del mes.'},
+    {t:'6. Un local que gana: retirar o reinvertir',r:'Reinvertir sólo si el proyecto rinde ≥ 25-30 % anual en dólares con payback ≤ 24 meses y no lleva la concentración en negocios por encima del 60 %. Si no cumple, la plata sale al patrimonio. Retiro = 50-70 % de lo que el local generó de verdad en los últimos 3 meses, después de reservar impuestos y aguinaldo.',now:now(localRule(LOCALES[0])),more:'Retirar más de lo que el local genera no es ganancia: es consumir capital de trabajo (stock y crédito con proveedores). Se ve en la caja del local, no en el resultado.'},
+    {t:'7. Pesos y dólares',r:'Los números del mes se convierten al dólar MEP promedio; los saldos al MEP de cierre. Para saber si un local crece, mirá "pesos de hoy"; para saber cuánto tenés, mirá dólares. Si en dólares todo sube y en pesos de hoy no, es atraso cambiario, y se puede dar vuelta.',now:now(last?`MEP ${Math.round(last.mep).toLocaleString('es-AR')} · inflación ${last.ipc!=null?last.ipc+' %':cfg.ipc_supuesto_pct+' % (supuesto)'}`:'—'),more:'Entre enero y agosto de 2026 los precios subieron 17,9 % y el dólar 3,1 %: cualquier negocio "creció 14 % en dólares" sin vender una unidad más. La regla del MEP vale igual cuando la brecha vuelva a ser grande.'},
+    {t:'8. Anti-pánico',r:'Si el riesgo país sube 100 puntos en un mes o el dólar salta 30 %, no se vende nada: se verifica que las tres capas de liquidez estén completas (fondo personal, 10-15 % de la cartera vendible en 24 h, 2-3 meses de fijos en cada local). Rebalancear sólo cuando una clase se aleja más de 5 puntos de su objetivo, y con plata nueva antes que vendiendo.',now:now(ilf!=null?`ingresos pasivos cubren ${fmtPct(ilf)} de los gastos`:'—'),more:'Un escenario shock razonable para probar el tablero: MEP +30 %, inflación 4 % mensual por un trimestre, ventas reales −8 %. Si con eso la caja de los locales aguanta 3 meses sin aporte, el negocio está bien parado.'}
+  ];
+  $('#reglas').innerHTML=reglas.map(x=>`<div class="rule"><h3>${x.t}${x.now}</h3><p>${x.r}</p><details><summary>Leer más</summary><p>${x.more}</p></details></div>`).join('');
+}
+
+/* ---------- CARGAR ---------- */
+function monthOptions(){const sel=$('#m-mes');const cur=sel.value;const opts=[];const d=new Date();d.setDate(1);for(let i=0;i<30;i++){const k=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');opts.push(k);d.setMonth(d.getMonth()-1);}
+  const existing=Object.keys(S.meses);const all=[...new Set([...opts,...existing])].sort().reverse();
+  sel.innerHTML=all.map(k=>`<option value="${k}">${labelMesLargo(k)}${S.meses[k]?' ✓':''}</option>`).join('');
+  if(cur&&all.includes(cur))sel.value=cur;else{const d2=new Date();d2.setMonth(d2.getMonth()-1);const def=d2.getFullYear()+'-'+String(d2.getMonth()+1).padStart(2,'0');if(all.includes(def))sel.value=def;}
+  fillMonthForm();}
+function fillMonthForm(){const k=$('#m-mes').value;const m=S.meses[k]||{};const set=(id,v)=>{$(id).value=v==null?'':v;};
+  set('#m-mep',m.mep_prom);set('#m-cartera',m.cartera_usd);set('#m-caja',m.caja_usd);
+  set('#m-g-juncal',m.ganancia&&m.ganancia.juncal);set('#m-g-ituzaingo',m.ganancia&&m.ganancia.ituzaingo);set('#m-g-avellaneda',m.ganancia&&m.ganancia.avellaneda);
+  set('#m-ipc',m.ipc_var);set('#m-rentas',m.rentas_ars);set('#m-gastos',m.gastos_ars);set('#m-nota',m.nota||'');}
+$('#m-mes').addEventListener('change',fillMonthForm);
+$('#f-mes').addEventListener('submit',async e=>{e.preventDefault();if(!G.ready){toast('Primero conectá con GitHub.');openConn();return;}
+  const k=$('#m-mes').value;const prev=S.meses[k]||{};
+  const doc=Object.assign({},prev,{mep_prom:num($('#m-mep').value),cartera_usd:num($('#m-cartera').value),caja_usd:num($('#m-caja').value),
+    ganancia:{juncal:num($('#m-g-juncal').value),ituzaingo:num($('#m-g-ituzaingo').value),avellaneda:num($('#m-g-avellaneda').value)},
+    ipc_var:num($('#m-ipc').value),rentas_ars:num($('#m-rentas').value),gastos_ars:num($('#m-gastos').value),nota:$('#m-nota').value.trim(),actualizado:new Date().toISOString().slice(0,10),cargado_por:'formulario'});
+  for(const kk of Object.keys(doc)){if(doc[kk]==null)delete doc[kk];}for(const kk of Object.keys(doc.ganancia)){if(doc.ganancia[kk]==null)delete doc.ganancia[kk];}
+  const btn=$('#m-save');btn.disabled=true;
+  const before=S.meses[k];S.meses[k]=doc;
+  try{await G.save('Mes '+k);toast('Guardado '+labelMesLargo(k));S.formsDirty=true;renderAll();}
+  catch(err){S.meses[k]=before;toast('No se pudo guardar: '+(err&&err.message||err));}
+  btn.disabled=false;});
+
+function renderConfigForms(C){
+  const cfg=C.cfg;
+  const inm=$('#e-inmuebles');
+  inm.innerHTML=(cfg.inmuebles||[]).map((x,i)=>`<div class="row" data-i="${i}"><label><span class="h">Nombre</span><input data-k="nombre" value="${x.nombre||''}"></label><label><span class="h">Valor USD</span><input data-k="valor_usd" type="number" value="${x.valor_usd??''}"></label><label><span class="h">Haircut %</span><input data-k="haircut_pct" type="number" value="${x.haircut_pct??12}"></label><label><span class="h">Renta $/mes</span><input data-k="renta_ars" type="number" value="${x.renta_ars??''}"></label><label><span class="h">Gastos % renta</span><input data-k="gastos_pct" type="number" value="${x.gastos_pct??25}"></label><button class="x" type="button" data-del="inmuebles" aria-label="Quitar">✕</button></div>`).join('')||'<p class="muted">Sin inmuebles cargados.</p>';
+  inm.querySelectorAll('.row').forEach(r=>{r.style.gridTemplateColumns='1.4fr 1fr .8fr 1fr .8fr auto';});
+  $('#e-locales').innerHTML=(cfg.locales||[]).map((x,i)=>`<div class="row r4" data-i="${i}"><label><span class="h">Local</span><input data-k="nombre" value="${x.nombre||''}" readonly></label><label><span class="h">Participación %</span><input data-k="participacion_pct" type="number" value="${x.participacion_pct??0}"></label><label><span class="h">Valor estimado USD</span><input data-k="valor_usd" type="number" value="${x.valor_usd??0}"></label><label><span class="h">En tu patrimonio</span><select data-k="en_patrimonio"><option value="true" ${x.en_patrimonio!==false?'selected':''}>Sí</option><option value="false" ${x.en_patrimonio===false?'selected':''}>No</option></select></label><span></span></div>`).join('');
+  const otros=[...(cfg.otros||[]).map((x,i)=>({tipo:'otros',i,x})),...(cfg.deudas||[]).map((x,i)=>({tipo:'deudas',i,x}))];
+  $('#e-otros').innerHTML=otros.map(o=>`<div class="row r3" data-i="${o.i}" data-tipo="${o.tipo}"><label><span class="h">${o.tipo==='deudas'?'Deuda':'Activo'}</span><input data-k="nombre" value="${o.x.nombre||''}"></label><label><span class="h">${o.tipo==='deudas'?'Saldo USD':'Valor USD'}</span><input data-k="${o.tipo==='deudas'?'saldo_usd':'valor_usd'}" type="number" value="${(o.tipo==='deudas'?o.x.saldo_usd:o.x.valor_usd)??''}"></label><label><span class="h">Tipo</span><input value="${o.tipo==='deudas'?'deuda':'activo'}" readonly></label><button class="x" type="button" data-del="${o.tipo}" aria-label="Quitar">✕</button></div>`).join('')||'<p class="muted">Sin otros activos ni deudas.</p>';
+  $('#s-gastos').value=cfg.gastos_mensuales_ars;$('#s-objetivo').value=cfg.objetivo_usd_mes;$('#s-rend').value=cfg.rendimiento_neto_pct;$('#s-influsd').value=cfg.inflacion_usd_pct;$('#s-anio').value=cfg.horizonte_anio;$('#s-ipc').value=cfg.ipc_supuesto_pct;$('#s-liq').value=cfg.liquidez_cartera_pct;$('#s-fe').value=cfg.fondo_emergencia_meses;
+  document.querySelectorAll('[data-del]').forEach(b=>b.addEventListener('click',()=>{const row=b.closest('.row');const tipo=b.dataset.del;const i=+row.dataset.i;const c=readConfigForms();c[tipo].splice(i,1);S.config=c;renderConfigForms(calc());}));
+}
+function readConfigForms(){
+  const cfg=Object.assign({},DEFAULT_CONFIG,S.config||{});
+  const rows=(sel)=>[...document.querySelectorAll(sel+' .row')];
+  cfg.inmuebles=rows('#e-inmuebles').map(r=>{const o={};r.querySelectorAll('[data-k]').forEach(i=>{o[i.dataset.k]=i.type==='number'?num(i.value):i.value;});o.id=o.id||o.nombre;return o;});
+  cfg.locales=rows('#e-locales').map((r,i)=>{const base=(cfg.locales||[])[i]||{};const o=Object.assign({},base);r.querySelectorAll('[data-k]').forEach(el=>{const k=el.dataset.k;o[k]=k==='en_patrimonio'?el.value==='true':(el.type==='number'?num(el.value):el.value);});return o;});
+  cfg.otros=[];cfg.deudas=[];
+  rows('#e-otros').forEach(r=>{const o={};r.querySelectorAll('[data-k]').forEach(i=>{o[i.dataset.k]=i.type==='number'?num(i.value):i.value;});if(r.dataset.tipo==='deudas')cfg.deudas.push(o);else cfg.otros.push(o);});
+  cfg.gastos_mensuales_ars=num($('#s-gastos').value)??cfg.gastos_mensuales_ars;cfg.objetivo_usd_mes=num($('#s-objetivo').value)??cfg.objetivo_usd_mes;cfg.rendimiento_neto_pct=num($('#s-rend').value)??cfg.rendimiento_neto_pct;cfg.inflacion_usd_pct=num($('#s-influsd').value)??cfg.inflacion_usd_pct;cfg.horizonte_anio=num($('#s-anio').value)??cfg.horizonte_anio;cfg.ipc_supuesto_pct=num($('#s-ipc').value)??cfg.ipc_supuesto_pct;cfg.liquidez_cartera_pct=num($('#s-liq').value)??cfg.liquidez_cartera_pct;cfg.fondo_emergencia_meses=num($('#s-fe').value)??cfg.fondo_emergencia_meses;
+  return cfg;
+}
+$('#add-inmueble').addEventListener('click',()=>{const c=readConfigForms();c.inmuebles.push({nombre:'Nuevo inmueble',valor_usd:0,haircut_pct:12,renta_ars:0,gastos_pct:25});S.config=c;renderConfigForms(calc());});
+$('#add-otro').addEventListener('click',()=>{const c=readConfigForms();c.otros.push({nombre:'Nuevo activo',valor_usd:0});S.config=c;renderConfigForms(calc());});
+$('#add-deuda').addEventListener('click',()=>{const c=readConfigForms();c.deudas.push({nombre:'Nueva deuda',saldo_usd:0});S.config=c;renderConfigForms(calc());});
+$('#cfg-save').addEventListener('click',async()=>{if(!G.ready){toast('Primero conectá con GitHub.');openConn();return;}const c=readConfigForms();c.actualizado=new Date().toISOString().slice(0,10);const b=$('#cfg-save');b.disabled=true;const before=S.config;S.config=c;try{await G.save('Datos fijos');toast('Datos fijos guardados');S.formsDirty=true;renderAll();}catch(err){S.config=before;toast('No se pudo guardar: '+(err&&err.message||err));}b.disabled=false;});
+$('#btn-export').addEventListener('click',()=>{const data=JSON.stringify({version:1,exportado:new Date().toISOString(),config:S.config,meses:S.meses},null,1);const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([data],{type:'application/json'}));a.download='patrimonio-'+new Date().toISOString().slice(0,10)+'.json';document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},500);toast('Exportado');});
+$('#btn-import').addEventListener('change',async e=>{const f=e.target.files[0];if(!f)return;if(!G.ready){toast('Primero conectá con GitHub.');openConn();e.target.value='';return;}try{const j=JSON.parse(await f.text());if(j.config)S.config=j.config;if(j.meses)S.meses=Object.assign({},S.meses,j.meses);await G.save('Importación');toast('Importado');S.formsDirty=true;renderAll();}catch(err){toast('No se pudo importar: '+(err&&err.message||err));}e.target.value='';});
+
+/* ---------- render ---------- */
+function renderAll(){if(rendering)return;rendering=true;try{const C=calc();const active=tabs.find(b=>b.getAttribute('aria-selected')==='true').dataset.tab;
+  if(active==='patrimonio')renderPatrimonio(C);else if(active==='locales')renderLocales(C);else if(active==='proyeccion')renderProyeccion(C);else if(active==='decidir')renderDecidir(C);else if(active==='cargar'&&(S.formsDirty||!S.formsReady)){monthOptions();renderConfigForms(C);S.formsDirty=false;S.formsReady=S.loaded;}
+  const n=Object.keys(S.meses).length;const last=C.last;$('#status').innerHTML=G.ready?(n?`<b>${n} meses</b> cargados · último ${labelMesLargo(last.k)}${S.config&&S.config.actualizado?' · datos fijos '+S.config.actualizado:''}`:'Sin datos todavía'):(G.error?'Sin conexión: '+G.error:'Sin conectar');
+}finally{rendering=false;}}
+window.addEventListener('resize',()=>{clearTimeout(window._rz);window._rz=setTimeout(renderAll,200);});
+if(window.matchMedia){window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>renderAll());}
+new MutationObserver(()=>renderAll()).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+
+/* ---------- datos: GitHub como base ---------- */
+const G={ready:false,error:null,sha:null,cfg:null};
+const KEY='patrimonio.git';
+function loadConn(){try{G.cfg=JSON.parse(localStorage.getItem(KEY)||'null');}catch(e){G.cfg=null;}return G.cfg;}
+function saveConn(c){try{localStorage.setItem(KEY,JSON.stringify(c));}catch(e){}G.cfg=c;}
+const b64enc=str=>{const bytes=new TextEncoder().encode(str);let bin='';for(let i=0;i<bytes.length;i+=0x8000)bin+=String.fromCharCode.apply(null,bytes.subarray(i,i+0x8000));return btoa(bin);};
+const b64dec=b=>{const bin=atob(b.replace(/\s/g,''));const bytes=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);return new TextDecoder().decode(bytes);};
+function api(path,opts){const c=G.cfg;return fetch('https://api.github.com/repos/'+c.owner+'/'+c.repo+'/contents/'+(c.path||'data.json')+path,Object.assign({headers:{'Authorization':'Bearer '+c.token,'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28'},cache:'no-store'},opts||{}));}
+G.load=async function(){const c=G.cfg;if(!c||!c.owner||!c.repo||!c.token){G.ready=false;G.error=null;return false;}
+  const r=await api('?ref='+encodeURIComponent(c.branch||'main'));
+  if(r.status===404){G.ready=false;G.error='no se encontró data.json en '+c.owner+'/'+c.repo;return false;}
+  if(r.status===401||r.status===403){G.ready=false;G.error='token inválido o sin permiso ('+r.status+')';return false;}
+  if(!r.ok){G.ready=false;G.error='GitHub respondió '+r.status;return false;}
+  const j=await r.json();G.sha=j.sha;const d=JSON.parse(b64dec(j.content)||'{}');S.config=d.config||null;S.meses=d.meses||{};S.loaded=true;G.ready=true;G.error=null;return true;};
+G.save=async function(msg){const c=G.cfg;const body={message:'Patrimonio: '+msg+' ('+new Date().toISOString().slice(0,16).replace('T',' ')+')',content:b64enc(JSON.stringify({version:1,actualizado:new Date().toISOString().slice(0,10),config:S.config,meses:S.meses},null,1)),branch:c.branch||'main'};if(G.sha)body.sha=G.sha;
+  const r=await api('',{method:'PUT',body:JSON.stringify(body)});
+  if(r.status===409||r.status===422){await G.load();throw new Error('el archivo cambió en GitHub; se recargó, volvé a guardar');}
+  if(!r.ok){throw new Error('GitHub respondió '+r.status);}
+  const j=await r.json();G.sha=j.content&&j.content.sha||G.sha;return true;};
+function openConn(){const c=G.cfg||{};$('#g-owner').value=c.owner||'';$('#g-repo').value=c.repo||'';$('#g-token').value='';$('#g-msg').textContent=G.error?('Último error: '+G.error):(G.ready?'Conectado a '+c.owner+'/'+c.repo:'');$('#conn').hidden=false;$('#conn').scrollIntoView({block:'start'});}
+$('#open-conn').addEventListener('click',e=>{e.preventDefault();openConn();});
+$('#f-conn').addEventListener('submit',async e=>{e.preventDefault();const c={owner:$('#g-owner').value.trim(),repo:$('#g-repo').value.trim(),token:$('#g-token').value.trim()||(G.cfg&&G.cfg.token)||'',path:'data.json',branch:'main'};if(!c.owner||!c.repo||!c.token){$('#g-msg').textContent='Faltan datos.';return;}saveConn(c);$('#g-msg').textContent='Conectando…';try{const ok=await G.load();if(ok){$('#conn').hidden=true;toast('Conectado');S.formsDirty=true;renderAll();}else{$('#g-msg').textContent=G.error||'No se pudo conectar';renderAll();}}catch(err){$('#g-msg').textContent='Error: '+(err&&err.message||err);}});
+$('#g-disconnect').addEventListener('click',()=>{try{localStorage.removeItem(KEY);}catch(e){}G.cfg=null;G.ready=false;G.sha=null;S.config=null;S.meses={};S.loaded=false;toast('Desconectado');renderAll();openConn();});
+async function boot(){const h=(location.hash||'').replace('#','');if(['patrimonio','locales','proyeccion','decidir','cargar'].includes(h))showTab(h);renderAll();loadConn();if(!G.cfg){openConn();return;}try{const ok=await G.load();if(!ok)openConn();}catch(err){G.error=err&&err.message||String(err);openConn();}renderAll();}
+boot();
+})();
+</script>
+</body>
+</html>
